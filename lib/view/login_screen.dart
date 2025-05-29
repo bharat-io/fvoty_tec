@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Center(child: _buildButton()),
+                      Center(child: _buildButton(onTap: () {})),
                       const SizedBox(height: 16),
                       Row(
                         children: [
@@ -166,11 +166,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton({required Function onTap}) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          onTap();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF1C4BC4),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
