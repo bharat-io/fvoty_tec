@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:fovty_tec/view/sign_up_screen.dart';
-import 'package:fovty_tec/view/widgets/app_textfiled.dart';
-import 'package:fovty_tec/view/widgets/gradint_background.dart';
+import 'package:fovty_tec/view/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import 'package:fovty_tec/view/widgets/app_textfiled.dart';
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GradientBackground(
+    return _buildSignUpBackground(
       child: Stack(
         children: [
           Scaffold(
@@ -34,73 +34,87 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Sign In", style: theme.textTheme.headlineLarge),
+                      Text("Create Your Account",
+                          style: theme.textTheme.headlineLarge),
                       const SizedBox(height: 8),
                       Text(
-                        "Access Your Galaxy - Sign In to Continue!",
+                        "Join Now & Unlock Your Digital Galaxy!",
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodySmall!
                             .copyWith(color: Colors.white),
                       ),
                       const SizedBox(height: 24),
                       Text(
+                        "Full Name",
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(fontSize: 12, color: Colors.white),
+                      ),
+                      const SizedBox(height: 4),
+                      const AppTextField(
+                        hintText: "Enter your full name ",
+                        isPassword: false,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
                         "Username",
                         style: theme.textTheme.bodySmall
                             ?.copyWith(fontSize: 12, color: Colors.white),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       const AppTextField(
                         hintText: "Enter your Username",
                         isPassword: false,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 8),
                       Text(
-                        "Password",
+                        "Create a password",
                         style: theme.textTheme.bodySmall
                             ?.copyWith(fontSize: 12, color: Colors.white),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       const AppTextField(
                         hintText: "Enter your password",
                         isPassword: true,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Forget Password?",
-                          style: theme.textTheme.bodySmall
-                              ?.copyWith(color: Colors.white),
+                        alignment: Alignment.bottomLeft,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 15,
+                              height: 15,
+                              margin: const EdgeInsets.only(right: 6),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.white, width: 1),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: "I agree to the ",
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                    color: Colors.white, fontSize: 12),
+                                children: [
+                                  TextSpan(
+                                    text: "Terms & condition",
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: Color.fromARGB(255, 38, 44, 214),
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 24),
                       Center(child: _buildButton(onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignUpScreen()));
+                            builder: (context) => HomeScreen()));
                       })),
                       const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const Expanded(child: Divider(color: Colors.white54)),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text("Or Sign In with",
-                                style: theme.textTheme.bodySmall),
-                          ),
-                          const Expanded(child: Divider(color: Colors.white54)),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _socialButton("assets/images/facebook.png"),
-                          _socialButton("assets/images/google.png"),
-                          _socialButton("assets/images/apple.png"),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
                       RichText(
                         text: TextSpan(
                           text: "Don't have an account? ",
@@ -108,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ?.copyWith(color: Colors.white),
                           children: [
                             TextSpan(
-                              text: "Sign Up",
+                              text: "Sign in",
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w100,
@@ -145,26 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          Positioned(
-            top: -100,
-            right: -120,
-            child: Container(
-              width: 400,
-              height: 400,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(2)),
-                gradient: RadialGradient(
-                  center: Alignment.center,
-                  radius: 0.3,
-                  colors: [
-                    Color.fromARGB(144, 162, 105, 254),
-                    Color(0x00A169FE),
-                  ],
-                  stops: [0.0, 1.0],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -185,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: const Text(
-          "Sign In",
+          "Sign Up",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -195,14 +189,47 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _socialButton(String icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Image.asset(icon),
+  Widget _buildSignUpBackground({Widget? child}) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFFB7D5EE),
+                Color(0xFF70A9F0),
+                Color(0xFF0095EE),
+                Color(0xFF1849DB),
+                Color(0xFF000AA4),
+              ],
+              stops: [0.0, 0.2, 0.5, 0.8, 1.0],
+            ),
+          ),
+        ),
+        Positioned(
+          top: -1,
+          right: -125,
+          child: Container(
+            width: 600,
+            height: 500,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              gradient: RadialGradient(
+                center: Alignment.topRight,
+                radius: 0.5,
+                colors: [
+                  Color.fromARGB(148, 189, 6, 173),
+                  Color(0x00FF4DC0),
+                ],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ),
+        ),
+        child!,
+      ],
     );
   }
 }
